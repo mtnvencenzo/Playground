@@ -44,3 +44,5 @@ msbuild.wrn
 node_modules/
 
 */packages/*
+
+#mcp-server/npm-cache/*
