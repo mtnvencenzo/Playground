@@ -1,0 +1,33 @@
+{
+  "name": "cocktails-model-context-protocol-server",
+  "version": "0.0.1",
+  "description": "MCP Server for Cocktails Analytics",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "mcp-cocktails-server": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && npm run copy-env && shx chmod +x dist/*.js",
+    "loc": "node dist/index.js --node-env=local",
+    "copy-env": "copyfiles \".env*\" \"./dist\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "nswag-cocktails-api": "nswag run src/cocktails/api/nswagConfig.json /variables:SpecUrl=https://api.cezzis.com/prd/cocktails/api-docs/v1/scalar/v1/openapi.json,Class=CocktailsApiClient,ExceptionClass=CocktailsApiClientException,BaseClass=CocktailsApiClientBase,Folder=cocktailsApi,ExtensionFile=cocktailsApiClientExtensions.ts,OutputFile=cocktailsApiClient.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "axios": "^1.5.0",
+    "dotenv-flow": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "copyfiles": "^2.4.1",
+    "nswag": "14.4.0",
+    "shx": "^0.4.0",
+    "typescript": "^5.8.3"
+  }
+}

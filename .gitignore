@@ -45,4 +45,8 @@ node_modules/
 
 */packages/*
 
-mcp-server/npm-cache/*
+*/npm-cache/*
+
+*/.env.local
+
+*/dist/*
