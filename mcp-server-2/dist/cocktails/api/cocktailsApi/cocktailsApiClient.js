@@ -13,7 +13,7 @@ export class CocktailsApiClient extends CocktailsApiClientBase {
         super();
         this.jsonParseReviver = undefined;
         this.instance = instance || axios.create();
-        this.baseUrl = baseUrl ?? this.getBaseUrl("http://aca-vec-eus-prd-cocktailsapi-001.proudfield-08e1f932.eastus.azurecontainerapps.io/");
+        this.baseUrl = this.getBaseUrl();
     }
     /**
      * @param freeText (optional) The free text search term to match against

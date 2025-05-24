@@ -11,8 +11,6 @@ import { CocktailsApiClient } from "./cocktails/api/cocktailsApi/cocktailsApiCli
 import { config } from "./config.js";
 import axios from "axios";
 
-console.error("Starting MCP server...");
-
 const server = new Server(
   {
     name: "cocktails-model-context-protocol-server",

@@ -1,3 +1,4 @@
+import { config } from "../../../config.js";
 export class ApiException extends Error {
     constructor(message, status, response, headers, result) {
         super();
@@ -26,8 +27,10 @@ export class CocktailsApiClientBase {
         //const authHeader = token && { 'Authorization': `Bearer ${token}` } ??
         options.headers = {
             ...options.headers,
-            'X-Key': `>n!h<?$q2xj4zh-%=fzsc43r`
+            'X-Key': config.api.subscriptionKey,
         };
+        options.baseURL = this.getBaseUrl();
+        options.transformResponse = (data) => data;
         // if (token) {
         //     options.headers = {
         //         'Authorization': `Bearer ${token}`,
@@ -48,8 +51,8 @@ export class CocktailsApiClientBase {
             throw e;
         }
     }
-    getBaseUrl(_s) {
-        return `https://api.cezzis.com/prd/cocktails`;
+    getBaseUrl() {
+        return config.api.baseUrl;
     }
     throwEx(message, status, response, headers, result) {
         if (result !== null && result !== undefined)

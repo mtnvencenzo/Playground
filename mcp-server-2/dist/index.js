@@ -4,7 +4,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CallToolRequestSchema, ListToolsRequestSchema, } from "@modelcontextprotocol/sdk/types.js";
 import { searchTool } from "./cocktails/search.js";
 import { CocktailsApiClient } from "./cocktails/api/cocktailsApi/cocktailsApiClient.js";
-console.error("Starting MCP server...");
+import { config } from "./config.js";
+import axios from "axios";
 const server = new Server({
     name: "cocktails-model-context-protocol-server",
     version: "0.0.1",
@@ -31,7 +32,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 if (!args.freeText) {
                     throw new Error("Missing required arguments");
                 }
-                var client = new CocktailsApiClient();
+                var client = new CocktailsApiClient(undefined, axios.create({
+                    baseURL: config.api.baseUrl,
+                    headers: {
+                        "X-Key": config.api.subscriptionKey,
+                    },
+                    transformResponse: data => data
+                }));
                 const response = await client.getCocktailsList(args.freeText, 0, 1000);
                 return {
                     content: [{ type: "text", text: JSON.stringify(response) }],
