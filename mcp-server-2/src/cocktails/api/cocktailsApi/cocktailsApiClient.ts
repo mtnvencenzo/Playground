@@ -1657,6 +1657,18 @@ export class CocktailsApiClientException extends Error {
     }
 }
 
+/**
+ * Throws an exception based on the provided error details.
+ *
+ * If a parsed error result is provided, it is thrown directly; otherwise, a new {@link CocktailsApiClientException} is thrown with the given message, status, response, and headers.
+ *
+ * @param message - The error message.
+ * @param status - The HTTP status code.
+ * @param response - The raw response text.
+ * @param headers - The response headers.
+ * @param result - An optional parsed error result to throw directly.
+ * @throws {CocktailsApiClientException} If {@link result} is not provided.
+ */
 function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {
     if (result !== null && result !== undefined)
         throw result;
@@ -1664,6 +1676,12 @@ function throwException(message: string, status: number, response: string, heade
         throw new CocktailsApiClientException(message, status, response, headers, null);
 }
 
+/**
+ * Determines whether the given object is an Axios error.
+ *
+ * @param obj - The object to check.
+ * @returns True if {@link obj} is an Axios error; otherwise, false.
+ */
 function isAxiosError(obj: any): obj is AxiosError {
     return obj && obj.isAxiosError === true;
 }
