@@ -19,9 +19,9 @@ npm run loc
 
 ## Claud Integration
 
-Open the Claude Developer Settings and edit the config file.  Paste this in and update the paths for the node.exe and the path the the mcp server entry point.  
+Open the Claude Developer Settings and edit the config file.  Paste this in and update the paths for the node.exe and the path to the mcp server entry point.
 
-_Note that purposly using node v20 because I couldn't get it working in the latest 23.x.x builds_
+> **Note:** Purposely using Node.js v20 because I couldn't get it working in the latest 23.x.x builds.
 
 ```json
 {

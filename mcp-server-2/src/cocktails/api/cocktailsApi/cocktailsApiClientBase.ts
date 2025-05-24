@@ -53,37 +53,16 @@ export class CocktailsApiClientBase {
 
         options.transformResponse = (data: any) => data;
 
-        // if (token) {
-        //     options.headers = {
-        //         'Authorization': `Bearer ${token}`,
-        //         ...options.headers
-        //     };
-        // }
-
-        // options.credentials = 'same-origin';
-        // options.redirect = 'error';
-        // options..mode = 'cors';
-
         return Promise.resolve(options);
     }
 
     protected transformResult(_url: string, response: AxiosResponse, processor: (response: AxiosResponse) => any) {
-        try {
-            return processor(response);
-        } catch (e: unknown) {
-            //logger.logException({ exception: e as Error });
-            throw e;
-        }
+        return processor(response);
     }
 
     protected getBaseUrl(): string {
-        return config.api.baseUrl;
-    }
-
-    private throwEx(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {
-        if (result !== null && result !== undefined)
-            throw result;
-        else
-            throw new ApiException(message, status, response, headers, null);
+        return config.api.baseUrl || (() => { 
+            throw new Error("API_BASE_URL is not set"); 
+        })();
     }
 }

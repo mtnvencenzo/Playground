@@ -46,13 +46,12 @@ server.setRequestHandler(
             throw new Error("Missing required arguments");
           }
 
-          var client = new CocktailsApiClient(undefined, axios.create({
-            baseURL: config.api.baseUrl,
-            headers: {
-              "X-Key": config.api.subscriptionKey,
-            },
-            transformResponse: data => data
-          }));
+          const axiosInstance = axios.create({
+            headers: { "X-Key": config.api.subscriptionKey },
+            transformResponse: (data) => data,
+          });
+
+          const client = new CocktailsApiClient(config.api.baseUrl, axiosInstance);
 
           const response = await client.getCocktailsList(
             args.freeText,
