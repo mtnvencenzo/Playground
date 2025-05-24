@@ -11,7 +11,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && shx chmod +x dist/*.js",
+    "build": "tsc && npm run copy-env && shx chmod +x dist/*.js && shx chmod +x dist/.env",
+    "copy-env": "copyfiles \".env\" \"./dist\"",
     "prepare": "npm run build",
     "watch": "tsc --watch",
     "nswag-cocktails-api": "nswag run src/cocktails/api/nswagConfig.json /variables:SpecUrl=https://api.cezzis.com/prd/cocktails/api-docs/v1/scalar/v1/openapi.json,Class=CocktailsApiClient,ExceptionClass=CocktailsApiClientException,BaseClass=CocktailsApiClientBase,Folder=cocktailsApi,ExtensionFile=cocktailsApiClientExtensions.ts,OutputFile=cocktailsApiClient.ts"
@@ -19,10 +20,12 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
     "@types/node": "^22",
-    "axios": "^1.5.0"
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "@types/node": "^22",
+    "copyfiles": "^2.4.1",
     "nswag": "14.4.0",
     "shx": "^0.4.0",
     "typescript": "^5.8.3"

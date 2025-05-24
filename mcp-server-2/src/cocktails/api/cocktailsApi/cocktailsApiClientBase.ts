@@ -4,6 +4,7 @@
 // import { getWindowEnv } from '../../utils/envConfig';
 // import logger from '../../services/Logger';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { config } from "../../../config.js";
 
 export class ApiException extends Error {
     override message: string;
@@ -45,8 +46,12 @@ export class CocktailsApiClientBase {
         //const authHeader = token && { 'Authorization': `Bearer ${token}` } ??
         options.headers = {
             ...options.headers,
-            'X-Key': ``
+            'X-Key': config.api.subscriptionKey,
         };
+
+        options.baseURL = this.getBaseUrl();
+
+        options.transformResponse = (data: any) => data;
 
         // if (token) {
         //     options.headers = {
@@ -71,8 +76,8 @@ export class CocktailsApiClientBase {
         }
     }
 
-    protected getBaseUrl(_s: string): string {
-        return `https://api.cezzis.com/prd/cocktails`;
+    protected getBaseUrl(): string {
+        return config.api.baseUrl;
     }
 
     private throwEx(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {

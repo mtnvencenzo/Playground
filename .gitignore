@@ -46,3 +46,7 @@ node_modules/
 */packages/*
 
 */npm-cache/*
+
+*/.env.local
+
+/*/**/dist/*/**

@@ -8,6 +8,8 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { SearchArgs, searchTool } from "./cocktails/search.js";
 import { CocktailsApiClient } from "./cocktails/api/cocktailsApi/cocktailsApiClient.js";
+import { config } from "./config.js";
+import axios from "axios";
 
 console.error("Starting MCP server...");
 
@@ -46,7 +48,13 @@ server.setRequestHandler(
             throw new Error("Missing required arguments");
           }
 
-          var client = new CocktailsApiClient();
+          var client = new CocktailsApiClient(undefined, axios.create({
+            baseURL: config.api.baseUrl,
+            headers: {
+              "X-Key": config.api.subscriptionKey,
+            },
+            transformResponse: data => data
+          }));
 
           const response = await client.getCocktailsList(
             args.freeText,
