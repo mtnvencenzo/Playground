@@ -81,6 +81,11 @@ server.setRequestHandler(
   }
 );
 
+/**
+ * Starts the Cocktails MCP server using standard input/output for communication.
+ *
+ * Establishes a connection to the server via {@link StdioServerTransport} and logs the server status.
+ */
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
