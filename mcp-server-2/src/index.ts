@@ -47,7 +47,6 @@ server.setRequestHandler(
           }
 
           const axiosInstance = axios.create({
-            headers: { "X-Key": config.api.subscriptionKey },
             transformResponse: (data) => data,
           });
 
